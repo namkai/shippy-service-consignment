@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	pb "github.com/namkai/shippy-service-consignment/proto/consignment"
 	vesselProto "github.com/namkai/shippy-service-vessel/proto/vessel"
 	"github.com/pkg/errors"
@@ -16,7 +17,7 @@ type handler struct {
 // which is a create method, which takes a context and a request as an
 // argument, these are handled by the gRPC server.
 func (s *handler) CreateConsignment(ctx context.Context, req *pb.Consignment, res *pb.Response) error {
-
+	fmt.Printf("REQ::::::: %v\n: %v\n", req.Weight, req.Containers)
 	// Here we call a client instance of our vessel service with our consignment weight,
 	// and the amount of containers as the capacity value
 	vesselResponse, err := s.vesselClient.FindAvailable(ctx, &vesselProto.Specification{
